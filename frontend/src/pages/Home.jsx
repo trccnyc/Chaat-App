@@ -1,26 +1,45 @@
-import { Box, Button, Container, Tab, TabList, TabPanel, TabPanels, Tabs, Text, } from "@chakra-ui/react";
-import { useState } from "react";
-import Login from "../componets/Login";
-import Signup from "../componets/Signup";
+import {
+  Box,
+  Container,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+} from "@chakra-ui/react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import Login from "../componets/Authentication/Login";
+import Signup from "../componets/Authentication/Signup";
 
-const Home = () => {
+function Home() {
+  const Navigate = useNavigate();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+
+    if (user) Navigate("/chats");
+  }, [Navigate]);
+
   return (
     <Container maxW="xl" centerContent>
       <Box
-        d="flex"
+        display="flex"
         justifyContent="center"
-        alignItems="center"
         p={3}
-        bg={"white"}
+        bg="white"
         w="100%"
         m="40px 0 15px 0"
         borderRadius="lg"
         borderWidth="1px"
       >
-        <Text fontSize="2xl" textAlign="center">Quick-Chat</Text>
+        <Text fontSize="4xl" fontFamily="Work sans">
+          Talk-A-Tive
+        </Text>
       </Box>
       <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
-      <Tabs isFitted variant="soft-rounded">
+        <Tabs isFitted variant="soft-rounded">
           <TabList mb="1em">
             <Tab>Login</Tab>
             <Tab>Sign Up</Tab>
@@ -34,9 +53,9 @@ const Home = () => {
             </TabPanel>
           </TabPanels>
         </Tabs>
-        </Box>
+      </Box>
     </Container>
   );
-};
+}
 
 export default Home;
